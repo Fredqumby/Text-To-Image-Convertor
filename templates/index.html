@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image to Text Converter | OCR Tool</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -1740,10 +1741,13 @@
                 body: formData
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+                console.log('Response status:', response.status);
+                return response.json().then(data => {
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Network response was not ok');
+                    }
+                    return data;
+                });
             })
             .then(data => {
                 if (data.error) {
