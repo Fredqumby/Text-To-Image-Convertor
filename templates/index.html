@@ -1392,14 +1392,14 @@
         <main class="main-content">
             <div class="card">
                 <div class="card-header">
-                    <h2><i class="fas fa-upload"></i> Upload PNG Image</h2>
+                    <h2><i class="fas fa-upload"></i> Upload Image</h2>
                 </div>
                 <div class="card-body">
                     <div class="upload-area" id="uploadArea">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <h3>Drag & Drop your PNG file</h3>
-                        <p>or click to browse files</p>
-                        <input type="file" id="fileInput" class="file-input" accept=".png,image/png">
+                        <h3>Drag & Drop your image file</h3>
+                        <p>Supports PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP</p>
+                        <input type="file" id="fileInput" class="file-input" accept="image/*">
                     </div>
                     
                     <div class="preview-container">
@@ -1694,12 +1694,11 @@
 
         // Functions
         function handleFile(file) {
-            // More flexible file type checking for mobile compatibility
-            const validTypes = ['image/png', 'image/PNG', 'image/x-png'];
-            const isPNG = validTypes.includes(file.type) || file.name.toLowerCase().endsWith('.png');
+            const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/tiff', 'image/webp'];
+            const isValidImage = validTypes.includes(file.type) || /\.(png|jpe?g|gif|bmp|tiff?|webp)$/i.test(file.name);
             
-            if (!isPNG) {
-                showToast('Please upload a PNG file', 'danger');
+            if (!isValidImage) {
+                showToast('Please upload a valid image file (PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP)', 'danger');
                 return;
             }
 

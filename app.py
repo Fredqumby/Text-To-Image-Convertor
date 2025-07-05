@@ -40,9 +40,19 @@ def upload_image():
         language = request.form.get('language', 'eng')
         logger.info(f'Processing file: {file.filename}, language: {language}')
         
-        # Validate file type
-        if not file.filename.lower().endswith('.png'):
-            return jsonify({'error': 'Only PNG files are supported'}), 400
+        # Validate file type - support all common image formats
+        allowed_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.tif', '.webp'}
+        file_ext = os.path.splitext(file.filename.lower())[1]
+        if file_ext not in allowed_extensions:
+            return jsonify({'error': 'Supported formats: PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP'}), 400
+        
+        # Determine MIME type for API
+        mime_types = {
+            '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+            '.gif': 'image/gif', '.bmp': 'image/bmp', '.tiff': 'image/tiff',
+            '.tif': 'image/tiff', '.webp': 'image/webp'
+        }
+        mime_type = mime_types.get(file_ext, 'image/jpeg')
         
         # Reset file pointer
         file.seek(0)
@@ -51,7 +61,7 @@ def upload_image():
         logger.info('Sending request to OCR.space API')
         response = requests.post(
             'https://api.ocr.space/parse/image',
-            files={'file': (file.filename, file.read(), 'image/png')},
+            files={'file': (file.filename, file.read(), mime_type)},
             data={
                 'apikey': OCR_API_KEY,
                 'language': language,
