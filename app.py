@@ -12,11 +12,19 @@ logger = logging.getLogger(__name__)
 # Using environment variable for API key (more secure)
 OCR_API_KEY = os.environ.get('OCR_API_KEY', 'K89559624088957')
 
+# Ensure uploads directory exists
+os.makedirs('uploads', exist_ok=True)
+
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/ad-debug')
+def ad_debug():
+    with open('ad_debug.html', 'r') as f:
+        return f.read()
 
 @app.route('/favicon.ico')
 def favicon():
@@ -25,92 +33,65 @@ def favicon():
 @app.route('/upload', methods=['POST'])
 def upload_image():
     try:
-        logger.info('Upload request received')
-        
         if 'file' not in request.files:
-            logger.error('No file in request')
             return jsonify({'error': 'No file uploaded'}), 400
             
         file = request.files['file']
-        if file.filename == '':
-            logger.error('Empty filename')
-            return jsonify({'error': 'No selected file'}), 400
+        if not file or file.filename == '':
+            return jsonify({'error': 'No file selected'}), 400
         
-        # Get language from form data
         language = request.form.get('language', 'eng')
-        logger.info(f'Processing file: {file.filename}, language: {language}')
         
-        # Validate file type - support all common image formats
-        allowed_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.tif', '.webp'}
+        # Validate file
+        allowed_ext = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.tif', '.webp'}
         file_ext = os.path.splitext(file.filename.lower())[1]
-        if file_ext not in allowed_extensions:
-            return jsonify({'error': 'Supported formats: PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP'}), 400
+        if file_ext not in allowed_ext:
+            return jsonify({'error': 'Invalid file format'}), 400
         
-        # Determine MIME type for API
-        mime_types = {
-            '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-            '.gif': 'image/gif', '.bmp': 'image/bmp', '.tiff': 'image/tiff',
-            '.tif': 'image/tiff', '.webp': 'image/webp'
-        }
-        mime_type = mime_types.get(file_ext, 'image/jpeg')
-        
-        # Reset file pointer
+        # Read file data
         file.seek(0)
-        
-        # Send directly to OCR.space API without saving to disk
-        logger.info('Sending request to OCR.space API')
-        response = requests.post(
-            'https://api.ocr.space/parse/image',
-            files={'file': (file.filename, file.read(), mime_type)},
-            data={
-                'apikey': OCR_API_KEY,
-                'language': language,
-                'isOverlayRequired': False,
-                'detectOrientation': True,
-                'scale': True,
-                'OCREngine': 2
-            },
-            timeout=30
-        )
-        
-        logger.info(f'OCR API response status: {response.status_code}')
-        
-        if response.status_code != 200:
-            logger.error(f'OCR API error: {response.status_code} - {response.text}')
-            return jsonify({'error': f'OCR service error: {response.status_code}'}), 500
-        
-        # Process response
-        result = response.json()
-        logger.info(f'OCR API result: {result}')
-        
-        # Check for errors
-        if result.get('IsErroredOnProcessing', False):
-            error_message = result.get('ErrorMessage', 'OCR processing failed')
-            logger.error(f'OCR processing error: {error_message}')
-            return jsonify({'error': error_message}), 500
+        file_data = file.read()
+        if len(file_data) == 0:
+            return jsonify({'error': 'Empty file'}), 400
             
-        # Success - extract text
-        if 'ParsedResults' in result and len(result['ParsedResults']) > 0:
-            extracted_text = result['ParsedResults'][0]['ParsedText']
-            if extracted_text.strip():
-                logger.info('Text extraction successful')
-                return jsonify({'text': extracted_text})
-            else:
-                logger.warning('No text found in image')
-                return jsonify({'error': 'No text found in the image'}), 400
-        else:
-            logger.error('No ParsedResults in response')
-            return jsonify({'error': 'No text found in the image'}), 400
+        # Try multiple OCR engines
+        engines = [2, 1]  # Engine 2 first, then 1 as fallback
         
-    except requests.exceptions.Timeout:
-        logger.error('OCR API timeout')
-        return jsonify({'error': 'Request timeout - please try again'}), 500
-    except requests.exceptions.RequestException as e:
-        logger.error(f'Request error: {str(e)}')
-        return jsonify({'error': 'Network error - please check your connection'}), 500
+        for engine in engines:
+            try:
+                file.seek(0)
+                response = requests.post(
+                    'https://api.ocr.space/parse/image',
+                    files={'file': (file.filename, file_data, 'image/jpeg')},
+                    data={
+                        'apikey': OCR_API_KEY,
+                        'language': language,
+                        'isOverlayRequired': False,
+                        'detectOrientation': True,
+                        'scale': True,
+                        'OCREngine': engine
+                    },
+                    timeout=45
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    
+                    if not result.get('IsErroredOnProcessing', False):
+                        if 'ParsedResults' in result and result['ParsedResults']:
+                            text = result['ParsedResults'][0].get('ParsedText', '').strip()
+                            if text:
+                                return jsonify({'text': text})
+                
+            except Exception as e:
+                logger.error(f'Engine {engine} failed: {str(e)}')
+                continue
+        
+        return jsonify({'error': 'Could not extract text from image'}), 400
+        
     except Exception as e:
-        logger.error(f'Unexpected error: {str(e)}')
-        return jsonify({'error': 'An unexpected error occurred'}), 500
+        logger.error(f'Upload error: {str(e)}')
+        return jsonify({'error': 'Processing failed'}), 500
 
 # For Vercel deployment
 app = app

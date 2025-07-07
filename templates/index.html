@@ -6,6 +6,10 @@
     <title>Image to Text Converter | OCR Tool</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3994885194766001"
+         crossorigin="anonymous"></script>
     <style>
         :root {
             --primary: #006D77;
@@ -567,6 +571,35 @@
                 right: 10px;
                 max-width: none;
                 text-align: center;
+            }
+        }
+        
+        /* Ad container styles */
+        .ad-container {
+            margin: 20px 0;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .ad-mobile-only {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .ad-mobile-only {
+                display: block;
+            }
+            
+            .ad-desktop-only {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .ad-desktop-only {
+                display: block;
             }
         }
         
@@ -1389,6 +1422,19 @@
             </div>
         </header>
 
+        <!-- Top Ad (Web view only) -->
+        <div class="ad-container ad-desktop-only">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3994885194766001"
+                 data-ad-slot="5271003315"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <main class="main-content">
             <div class="card">
                 <div class="card-header">
@@ -1417,6 +1463,19 @@
                 </div>
             </div>
             
+            <!-- Mobile Ad (Between cards) -->
+            <div class="ad-container ad-mobile-only">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-3994885194766001"
+                     data-ad-slot="5271003315"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-file-alt"></i> Extracted Text</h2>
@@ -1440,6 +1499,32 @@
                 </div>
             </div>
         </main>
+        
+        <!-- Bottom Ad (Mobile only - after cards) -->
+        <div class="ad-container ad-mobile-only">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3994885194766001"
+                 data-ad-slot="5271003315"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Bottom Ad (Web view - above footer) -->
+        <div class="ad-container ad-desktop-only">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3994885194766001"
+                 data-ad-slot="5271003315"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         
         <footer>
             <p>&copy; 2025 Image to Text Converter | All Rights Reserved</p>
@@ -1696,16 +1781,24 @@
             localStorage.setItem('theme', 'dark');
         }
 
+        // Global file storage
+        let currentFile = null;
+
         // Functions
         function handleFile(file) {
+            if (!file) return;
+            
             const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/tiff', 'image/webp'];
             const isValidImage = validTypes.includes(file.type) || /\.(png|jpe?g|gif|bmp|tiff?|webp)$/i.test(file.name);
             
             if (!isValidImage) {
-                showToast('Please upload a valid image file (PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP)', 'danger');
+                showToast('Please upload a valid image file', 'danger');
                 return;
             }
 
+            // Store file globally
+            currentFile = file;
+            
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
@@ -1713,71 +1806,85 @@
                 convertBtn.disabled = false;
                 showToast('Image uploaded successfully!', 'success');
             };
+            reader.onerror = () => {
+                showToast('Failed to read image file', 'danger');
+                currentFile = null;
+            };
             reader.readAsDataURL(file);
         }
 
         function convertImageToText() {
-            if (!imagePreview.src || imagePreview.src === window.location.href) {
+            if (!currentFile) {
                 showToast('Please upload an image first', 'danger');
                 return;
             }
 
-            // Get the file from input
-            if (fileInput.files.length === 0) {
-                showToast('Please upload an image first', 'danger');
-                return;
-            }
-            
-            const file = fileInput.files[0];
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', currentFile);
             formData.append('language', 'eng');
 
-            // Show loading indicator
+            // Show loading
             loadingIndicator.style.display = 'block';
             resultContainer.textContent = 'Processing your image...';
             convertBtn.disabled = true;
 
-            // Send to Flask backend
-            fetch('/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                console.log('Response status:', response.status);
-                return response.json().then(data => {
+            // Multiple retry attempts
+            const maxRetries = 3;
+            let retryCount = 0;
+
+            function attemptOCR() {
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                    timeout: 60000
+                })
+                .then(async response => {
+                    const data = await response.json();
                     if (!response.ok) {
-                        throw new Error(data.error || 'Network response was not ok');
+                        throw new Error(data.error || `HTTP ${response.status}`);
                     }
                     return data;
+                })
+                .then(data => {
+                    if (data.text && data.text.trim()) {
+                        resultContainer.textContent = data.text;
+                        showToast('Text extracted successfully!', 'success');
+                    } else {
+                        resultContainer.textContent = 'No text found in this image';
+                        showToast('No text detected', 'info');
+                    }
+                })
+                .catch(error => {
+                    retryCount++;
+                    if (retryCount < maxRetries) {
+                        showToast(`Retry ${retryCount}/${maxRetries}...`, 'info');
+                        setTimeout(attemptOCR, 2000);
+                        return;
+                    }
+                    
+                    console.error('OCR Error:', error);
+                    showToast('Failed to extract text. Try again.', 'danger');
+                    resultContainer.textContent = 'Failed to process image. Please try again.';
+                })
+                .finally(() => {
+                    if (retryCount >= maxRetries || resultContainer.textContent !== 'Processing your image...') {
+                        loadingIndicator.style.display = 'none';
+                        convertBtn.disabled = false;
+                    }
                 });
-            })
-            .then(data => {
-                if (data.error) {
-                    showToast('Error: ' + data.error, 'danger');
-                    resultContainer.textContent = 'Error processing image';
-                } else {
-                    resultContainer.textContent = data.text || 'No text found in image';
-                    showToast('Text extracted successfully!', 'success');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('Failed to process image', 'danger');
-                resultContainer.textContent = 'Failed to process image';
-            })
-            .finally(() => {
-                loadingIndicator.style.display = 'none';
-                convertBtn.disabled = false;
-            });
+            }
+
+            attemptOCR();
         }
 
         function resetAll(showMessage = false) {
+            currentFile = null;
             fileInput.value = '';
             imagePreview.src = '';
             imagePreview.style.display = 'none';
             resultContainer.textContent = 'Your extracted text will appear here...';
             convertBtn.disabled = true;
+            loadingIndicator.style.display = 'none';
             if (showMessage) {
                 showToast('Form reset', 'info');
             }
