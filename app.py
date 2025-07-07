@@ -18,6 +18,22 @@ OCR_API_KEY = os.environ.get('OCR_API_KEY', 'K89559624088957')
 def home():
     return render_template('index.html')
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/disclaimer')
+def disclaimer():
+    return render_template('disclaimer.html')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/favicon.ico')
 def favicon():
     return '', 204

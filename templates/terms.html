@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Image to Text Converter</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006D77;
+            --primary-dark: #005259;
+            --secondary: #83C5BE;
+            --info: #4299e1;
+            --light: #EDF6F9;
+            --card-bg: #ffffff;
+            --body-bg: linear-gradient(135deg, #EDF6F9 0%, #ffffff 100%);
+            --text-color: #2d3748;
+            --text-secondary: #718096;
+            --shadow: rgba(0, 109, 119, 0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #4a9eff;
+            --primary-dark: #3b7acc;
+            --secondary: #7c3aed;
+            --info: #63b3ed;
+            --light: #364156;
+            --card-bg: #212D40;
+            --body-bg: linear-gradient(135deg, #212D40 0%, #364156 100%);
+            --text-color: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --shadow: rgba(17, 21, 28, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--body-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--info), #63b3ed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: bounce 2s infinite;
+        }
+
+        .header-icon i {
+            font-size: 36px;
+            color: white;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--info);
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--info), #63b3ed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        p {
+            margin: 15px 0;
+            color: var(--text-color);
+            padding: 15px;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--info);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px var(--shadow);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .back-btn {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to App
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-file-contract"></i>
+            </div>
+            <h1>Terms of Service</h1>
+            <div class="last-updated">
+                <i class="fas fa-calendar-alt"></i>
+                Last updated: January 7, 2025
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                1. Acceptable Use
+            </h2>
+            <p>By using Image to Text Converter, you agree not to upload harmful, illegal, copyrighted, or inappropriate content. You must comply with all applicable laws and regulations.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                2. Data Handling
+            </h2>
+            <p>We process uploaded files via OCR.space API for text extraction. We do not store, retain, or have access to any images you upload. All processing is done in real-time.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                3. User Responsibility
+            </h2>
+            <p>You are solely responsible for ensuring the content you upload complies with all applicable laws, regulations, and third-party rights. You warrant that you have the right to upload and process the content.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-ad"></i>
+                </div>
+                4. AdSense & Third-Party Ads
+            </h2>
+            <p>We use Google AdSense to display advertisements. By using our service, you agree to view these ads as part of the user experience. We are not responsible for ad content.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                5. Changes to Terms
+            </h2>
+            <p>We reserve the right to modify these terms at any time without prior notice. Continued use of our service after changes constitutes acceptance of the updated terms.</p>
+        </div>
+    </div>
+    <script>
+        // Apply saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>

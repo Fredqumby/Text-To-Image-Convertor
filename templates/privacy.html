@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Image to Text Converter</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006D77;
+            --primary-dark: #005259;
+            --secondary: #83C5BE;
+            --success: #06d6a0;
+            --light: #EDF6F9;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #d1e7dd;
+            --card-bg: #ffffff;
+            --body-bg: linear-gradient(135deg, #EDF6F9 0%, #ffffff 100%);
+            --text-color: #2d3748;
+            --text-secondary: #718096;
+            --shadow: rgba(0, 109, 119, 0.15);
+            --shadow-lg: rgba(0, 109, 119, 0.25);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #4a9eff;
+            --primary-dark: #3b7acc;
+            --secondary: #7c3aed;
+            --light: #364156;
+            --dark: #f1f5f9;
+            --gray: #94a3b8;
+            --light-gray: #364156;
+            --card-bg: #212D40;
+            --body-bg: linear-gradient(135deg, #212D40 0%, #364156 100%);
+            --text-color: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --shadow: rgba(17, 21, 28, 0.6);
+            --shadow-lg: rgba(17, 21, 28, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--body-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .header-icon i {
+            font-size: 36px;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 0;
+        }
+
+        li {
+            list-style: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        li::before {
+            content: '✓';
+            background: var(--success);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        p {
+            margin: 15px 0;
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, var(--secondary) 0%, var(--secondary) 100%);
+            background-size: 100% 0.2em;
+            background-repeat: no-repeat;
+            background-position: 0 88%;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .contact-section h2 {
+            color: white;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 10px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px var(--shadow);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .back-btn {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 109, 119, 0.1);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to App
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Privacy Policy</h1>
+            <div class="last-updated">
+                <i class="fas fa-calendar-alt"></i>
+                Last updated: January 7, 2025
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="intro">
+                At <span class="highlight">Image to Text Converter</span>, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our OCR service.
+            </div>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                Information We Collect
+            </h2>
+            <ul>
+                <li><strong>Uploaded Images:</strong> Images are processed using the OCR.space API and are <strong>not stored</strong> on our servers</li>
+                <li><strong>Cookies:</strong> We use cookies to enhance user experience and serve ads via Google AdSense</li>
+                <li><strong>Log Data:</strong> Non-personal information like IP address, browser type, and timestamps for analytics</li>
+                <li><strong>Usage Data:</strong> How you interact with our service to improve functionality</li>
+            </ul>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                How We Use Your Information
+            </h2>
+            <ul>
+                <li>To operate and improve our OCR conversion tool</li>
+                <li>To personalize your user experience</li>
+                <li>To display relevant Google AdSense advertisements</li>
+                <li>To analyze usage patterns and optimize performance</li>
+                <li>To communicate important updates or changes</li>
+            </ul>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fab fa-google"></i>
+                </div>
+                Google AdSense
+            </h2>
+            <p>We use Google AdSense to display advertisements. Google uses cookies (including the DART cookie) to serve ads based on your visits to this and other websites. You can opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank">Google Ad Settings</a>.</p>
+            <p>For more information about Google's advertising policies, visit: <a href="https://policies.google.com/technologies/ads" target="_blank">Google Ad Policies</a>.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                OCR.space API
+            </h2>
+            <p>We use the OCR.space API to process your uploaded images. Your images are sent to OCR.space for text extraction and are not stored by us. Please review OCR.space's privacy policy at <a href="https://ocr.space/privacypolicy" target="_blank">ocr.space</a> for more information about their data handling practices.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                GDPR & CCPA Rights
+            </h2>
+            <p>Under GDPR and CCPA regulations, you have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate information</li>
+                <li>Delete your personal data</li>
+                <li>Object to data processing</li>
+                <li>Data portability</li>
+            </ul>
+            <p>To exercise these rights, contact us at <strong>selormcd@gmail.com</strong>.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                Children's Privacy
+            </h2>
+            <p>We do not knowingly collect personal information from children under 13 years of age. If you believe your child has provided personal information to us, please contact us immediately and we will take steps to remove such information.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                Data Security
+            </h2>
+            <p>We implement appropriate security measures to protect your information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                Changes to This Policy
+            </h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                Your Consent
+            </h2>
+            <p>By using our Image to Text Converter service, you consent to the collection and use of information as described in this Privacy Policy.</p>
+        </div>
+
+        <div class="contact-section">
+            <h2>
+                <i class="fas fa-envelope"></i>
+                Contact Us
+            </h2>
+            <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+            <a href="mailto:selormcd@gmail.com" class="contact-btn">
+                <i class="fas fa-envelope"></i>
+                selormcd@gmail.com
+            </a>
+            <a href="tel:+233531408169" class="contact-btn">
+                <i class="fas fa-phone"></i>
+                +233 53 140 8169
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Apply saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

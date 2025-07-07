@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - Image to Text Converter</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚠️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006D77;
+            --primary-dark: #005259;
+            --secondary: #83C5BE;
+            --warning: #ed8936;
+            --light: #EDF6F9;
+            --card-bg: #ffffff;
+            --body-bg: linear-gradient(135deg, #EDF6F9 0%, #ffffff 100%);
+            --text-color: #2d3748;
+            --text-secondary: #718096;
+            --shadow: rgba(0, 109, 119, 0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #4a9eff;
+            --primary-dark: #3b7acc;
+            --secondary: #7c3aed;
+            --warning: #f6ad55;
+            --light: #364156;
+            --card-bg: #212D40;
+            --body-bg: linear-gradient(135deg, #212D40 0%, #364156 100%);
+            --text-color: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --shadow: rgba(17, 21, 28, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--body-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: shake 2s infinite;
+        }
+
+        .header-icon i {
+            font-size: 36px;
+            color: white;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        p {
+            margin: 15px 0;
+            color: var(--text-color);
+            padding: 15px;
+            background: rgba(237, 139, 54, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px var(--shadow);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card {
+                padding: 20px;
+            }
+            
+            .back-btn {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to App
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h1>Disclaimer</h1>
+            <div class="last-updated">
+                <i class="fas fa-calendar-alt"></i>
+                Last updated: January 7, 2025
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                General Use
+            </h2>
+            <p>Image to Text Converter provides a tool to extract text from images using OCR.space API. We do not guarantee 100% accuracy of OCR results. Text extraction quality depends on image clarity, font type, and other factors.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-upload"></i>
+                </div>
+                File Uploads
+            </h2>
+            <p>Uploaded images are processed in real-time and are not stored on our servers. You are solely responsible for the content you upload. Do not upload sensitive, illegal, copyrighted, or inappropriate material.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-ad"></i>
+                </div>
+                Advertisements
+            </h2>
+            <p>We display third-party advertisements via Google AdSense. We are not responsible for external ad content, claims, or any issues arising from advertised products or services.</p>
+
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                Limitation of Liability
+            </h2>
+            <p>Use of our service is entirely at your own risk. We are not liable for any direct, indirect, incidental, or consequential damages resulting from your use of this website or service.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>
+                <div class="section-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                Rate Our App
+            </h2>
+            <div class="feedback-section">
+                <input type="text" id="userName" placeholder="Your name" class="name-input">
+                <div class="rating">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                </div>
+                <textarea id="userComment" placeholder="Tell us how useful this app was to you..." class="comment-input"></textarea>
+                <button onclick="submitFeedback()" class="submit-btn">Submit Feedback</button>
+            </div>
+            
+            <div class="reviews" id="reviews">
+                <h3>User Reviews</h3>
+                <div class="review">
+                    <div class="review-header">
+                        <strong>John D.</strong>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                    <p>"Amazing OCR tool! Saved me hours of typing. Perfect accuracy."</p>
+                </div>
+                <div class="review">
+                    <div class="review-header">
+                        <strong>Sarah M.</strong>
+                        <div class="stars">★★★★☆</div>
+                    </div>
+                    <p>"Very helpful for my research work. Easy to use interface."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .feedback-section {
+            margin: 20px 0;
+        }
+        
+        .name-input, .comment-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--light);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+        
+        .comment-input {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .rating {
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star:hover, .star.active {
+            color: #ffd700;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .reviews {
+            margin-top: 30px;
+        }
+        
+        .review {
+            background: rgba(0, 109, 119, 0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .stars {
+            color: #ffd700;
+        }
+    </style>
+
+    <script>
+        // Apply saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        let selectedRating = 0;
+
+        // Star rating functionality
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.rating);
+                updateStars();
+            });
+            
+            star.addEventListener('mouseover', () => {
+                const rating = parseInt(star.dataset.rating);
+                highlightStars(rating);
+            });
+        });
+
+        document.querySelector('.rating').addEventListener('mouseleave', () => {
+            updateStars();
+        });
+
+        function highlightStars(rating) {
+            document.querySelectorAll('.star').forEach((star, index) => {
+                star.classList.toggle('active', index < rating);
+            });
+        }
+
+        function updateStars() {
+            highlightStars(selectedRating);
+        }
+
+        function submitFeedback() {
+            const name = document.getElementById('userName').value.trim();
+            const comment = document.getElementById('userComment').value.trim();
+            
+            if (!name || !comment || selectedRating === 0) {
+                alert('Please fill in your name, rating, and comment.');
+                return;
+            }
+            
+            // Create new review
+            const reviewsContainer = document.getElementById('reviews');
+            const newReview = document.createElement('div');
+            newReview.className = 'review';
+            newReview.innerHTML = `
+                <div class="review-header">
+                    <strong>${name}</strong>
+                    <div class="stars">${'★'.repeat(selectedRating)}${'☆'.repeat(5-selectedRating)}</div>
+                </div>
+                <p>"${comment}"</p>
+            `;
+            
+            reviewsContainer.appendChild(newReview);
+            
+            // Reset form
+            document.getElementById('userName').value = '';
+            document.getElementById('userComment').value = '';
+            selectedRating = 0;
+            updateStars();
+            
+            alert('Thank you for your feedback!');
+        }
+    </script>
+</body>
+</html>
