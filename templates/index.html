@@ -566,6 +566,84 @@
             box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
         }
         
+        /* How to Use Card */
+        .how-to-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 2px solid transparent;
+        }
+        
+        .how-to-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+            border-color: var(--primary);
+        }
+        
+        .how-to-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .how-to-icon i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .how-to-content {
+            flex: 1;
+        }
+        
+        .how-to-content h3 {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .how-to-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .how-to-arrow {
+            color: var(--primary);
+            font-size: 20px;
+            transition: var(--transition);
+        }
+        
+        .how-to-card:hover .how-to-arrow {
+            transform: translateX(5px);
+        }
+        
+        @media (max-width: 768px) {
+            .how-to-card {
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .how-to-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .how-to-icon i {
+                font-size: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .toast {
                 left: 10px;
@@ -1411,6 +1489,9 @@
                 <h1>Image to Text Converter</h1>
             </div>
             <div class="controls">
+                <button class="btn btn-primary" onclick="window.location.href='/'">
+                    <i class="fas fa-home"></i> Home
+                </button>
                 <button class="btn" id="settingsBtn">
                     <i class="fas fa-cog"></i> Settings
                 </button>
@@ -1422,6 +1503,20 @@
                 </button>
             </div>
         </header>
+
+        <!-- How to Use Card -->
+        <div class="how-to-card" onclick="window.location.href='/tutorial'">
+            <div class="how-to-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="how-to-content">
+                <h3>How to Use This Tool</h3>
+                <p>Learn step-by-step how to convert images to text efficiently</p>
+            </div>
+            <div class="how-to-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+        </div>
 
         <!-- Top Ad (Web view only) -->
         <div class="ad-container ad-desktop-only">

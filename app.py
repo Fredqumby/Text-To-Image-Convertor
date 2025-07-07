@@ -34,6 +34,10 @@ def terms():
 def about():
     return render_template('about.html')
 
+@app.route('/tutorial')
+def tutorial():
+    return render_template('tutorial.html')
+
 @app.route('/favicon.ico')
 def favicon():
     return '', 204
