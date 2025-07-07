@@ -12,19 +12,11 @@ logger = logging.getLogger(__name__)
 # Using environment variable for API key (more secure)
 OCR_API_KEY = os.environ.get('OCR_API_KEY', 'K89559624088957')
 
-# Ensure uploads directory exists
-os.makedirs('uploads', exist_ok=True)
-
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
-
-@app.route('/ad-debug')
-def ad_debug():
-    with open('ad_debug.html', 'r') as f:
-        return f.read()
 
 @app.route('/favicon.ico')
 def favicon():
