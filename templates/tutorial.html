@@ -222,7 +222,7 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 15px;
             }
             
             h1 {
@@ -230,30 +230,60 @@
             }
             
             .step-card {
-                padding: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
             }
             
             .step-content {
                 margin-left: 0;
-                margin-top: 15px;
+                margin-top: 20px;
             }
             
             .step-header {
                 flex-direction: column;
                 text-align: center;
+                gap: 15px;
+            }
+            
+            .step-description {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .step-details {
+                padding: 20px;
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            .step-details li {
+                margin: 8px 0;
+            }
+            
+            .tips-card {
+                padding: 25px;
+            }
+            
+            .tips-list li {
+                margin: 12px 0;
+                font-size: 15px;
+                line-height: 1.6;
             }
             
             .back-btn {
                 position: relative;
                 margin-bottom: 20px;
+                display: inline-flex;
+                width: auto;
+                max-width: 120px;
             }
         }
     </style>
 </head>
 <body>
     <a href="/" class="back-btn">
-        <i class="fas fa-arrow-left"></i>
-        Back to App
+        <i class="fas fa-home"></i>
+        Home
     </a>
 
     <div class="container">

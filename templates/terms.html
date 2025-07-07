@@ -175,7 +175,7 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 15px;
             }
             
             h1 {
@@ -183,20 +183,35 @@
             }
             
             .content-card {
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            
+            p {
                 padding: 20px;
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 25px 0 20px 0;
             }
             
             .back-btn {
                 position: relative;
                 margin-bottom: 20px;
+                display: inline-flex;
+                width: auto;
+                max-width: 120px;
             }
         }
     </style>
 </head>
 <body>
     <a href="/" class="back-btn">
-        <i class="fas fa-arrow-left"></i>
-        Back to App
+        <i class="fas fa-home"></i>
+        Home
     </a>
 
     <div class="container">

@@ -70,7 +70,7 @@
         
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 5px;
             }
         }
 
@@ -82,7 +82,7 @@
         
         @media (max-width: 768px) {
             .container {
-                padding: 0 10px;
+                padding: 0 5px;
             }
         }
 
@@ -98,9 +98,9 @@
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                gap: 15px;
-                padding: 15px 0;
-                margin-bottom: 20px;
+                gap: 10px;
+                padding: 10px 0;
+                margin-bottom: 15px;
             }
         }
 
@@ -128,9 +128,10 @@
         
         @media (max-width: 768px) {
             .controls {
-                gap: 10px;
+                gap: 8px;
                 flex-wrap: wrap;
                 justify-content: center;
+                width: 100%;
             }
         }
 
@@ -200,6 +201,67 @@
         @media (min-width: 992px) {
             .main-content {
                 grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-content {
+                gap: 20px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .btn {
+                padding: 8px 14px;
+                font-size: 13px;
+                min-width: 80px;
+            }
+            
+            .card {
+                margin-bottom: 15px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .upload-area {
+                padding: 25px 15px;
+            }
+            
+            .upload-area h3 {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+            
+            .upload-area p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+            
+            .result-container {
+                min-height: 200px;
+                padding: 20px;
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            .action-buttons {
+                gap: 12px;
+            }
+            
+            .action-buttons.side-by-side {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
             }
         }
 
@@ -630,17 +692,26 @@
         
         @media (max-width: 768px) {
             .how-to-card {
-                padding: 15px;
-                gap: 15px;
+                padding: 12px;
+                gap: 12px;
+                margin-bottom: 20px;
             }
             
             .how-to-icon {
-                width: 50px;
-                height: 50px;
+                width: 45px;
+                height: 45px;
             }
             
             .how-to-icon i {
-                font-size: 20px;
+                font-size: 18px;
+            }
+            
+            .how-to-content h3 {
+                font-size: 1rem;
+            }
+            
+            .how-to-content p {
+                font-size: 13px;
             }
         }
         

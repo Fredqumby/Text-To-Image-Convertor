@@ -207,7 +207,7 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 15px;
             }
             
             h1 {
@@ -215,24 +215,48 @@
             }
             
             .content-card {
-                padding: 20px;
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            
+            .intro {
+                padding: 25px;
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .feature {
+                padding: 25px;
+            }
+            
+            .contact-section {
+                padding: 25px;
+            }
+            
+            .contact-list li {
+                padding: 15px 0;
+                font-size: 1rem;
             }
             
             .back-btn {
                 position: relative;
                 margin-bottom: 20px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
+                display: inline-flex;
+                width: auto;
+                max-width: 120px;
             }
         }
     </style>
 </head>
 <body>
     <a href="/" class="back-btn">
-        <i class="fas fa-arrow-left"></i>
-        Back to App
+        <i class="fas fa-home"></i>
+        Home
     </a>
 
     <div class="container">
